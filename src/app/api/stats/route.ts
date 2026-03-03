@@ -10,14 +10,14 @@ export async function GET() {
 
     const [overviewRows, dailyRows, appRows, categoryRows, deviceRows, recentRows] = await Promise.all([
       sql`WITH aa AS (
-        SELECT device_id, app_key, mode, category, level, status,
-               total_questions, correct_count, started_at, finished_at, id
+        SELECT device_id::text, app_key, mode, category, level, status,
+               total_questions, correct_count, started_at, finished_at, id::text
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
                'S'||stage_id||'-C'||class_id, NULL::text,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id
+               completed_questions, score, updated_at, updated_at, id::text
         FROM quiz_results
       )
       SELECT COUNT(DISTINCT device_id) AS total_devices,
@@ -28,14 +28,14 @@ export async function GET() {
              COALESCE(SUM(total_questions), 0) AS total_answered
       FROM aa`,
       sql`WITH aa AS (
-        SELECT device_id, app_key, mode, category, level, status,
-               total_questions, correct_count, started_at, finished_at, id
+        SELECT device_id::text, app_key, mode, category, level, status,
+               total_questions, correct_count, started_at, finished_at, id::text
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
                'S'||stage_id||'-C'||class_id, NULL::text,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id
+               completed_questions, score, updated_at, updated_at, id::text
         FROM quiz_results
       )
       SELECT DATE(started_at) AS date, COUNT(*) AS attempts,
@@ -46,14 +46,14 @@ export async function GET() {
       WHERE started_at >= NOW() - INTERVAL '30 days'
       GROUP BY DATE(started_at) ORDER BY date`,
       sql`WITH aa AS (
-        SELECT device_id, app_key, mode, category, level, status,
-               total_questions, correct_count, started_at, finished_at, id
+        SELECT device_id::text, app_key, mode, category, level, status,
+               total_questions, correct_count, started_at, finished_at, id::text
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
                'S'||stage_id||'-C'||class_id, NULL::text,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id
+               completed_questions, score, updated_at, updated_at, id::text
         FROM quiz_results
       )
       SELECT app_key, COUNT(DISTINCT device_id) AS devices,
@@ -63,14 +63,14 @@ export async function GET() {
              COALESCE(SUM(total_questions), 0) AS questions
       FROM aa GROUP BY app_key ORDER BY attempts DESC`,
       sql`WITH aa AS (
-        SELECT device_id, app_key, mode, category, level, status,
-               total_questions, correct_count, started_at, finished_at, id
+        SELECT device_id::text, app_key, mode, category, level, status,
+               total_questions, correct_count, started_at, finished_at, id::text
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
                'S'||stage_id||'-C'||class_id, NULL::text,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id
+               completed_questions, score, updated_at, updated_at, id::text
         FROM quiz_results
       )
       SELECT app_key, category, COUNT(*) AS attempts,
@@ -79,14 +79,14 @@ export async function GET() {
       FROM aa WHERE category IS NOT NULL
       GROUP BY app_key, category ORDER BY attempts DESC LIMIT 10`,
       sql`WITH aa AS (
-        SELECT device_id, app_key, mode, category, level, status,
-               total_questions, correct_count, started_at, finished_at, id
+        SELECT device_id::text, app_key, mode, category, level, status,
+               total_questions, correct_count, started_at, finished_at, id::text
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
                'S'||stage_id||'-C'||class_id, NULL::text,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id
+               completed_questions, score, updated_at, updated_at, id::text
         FROM quiz_results
       )
       SELECT device_id, COUNT(*) AS total_attempts,
@@ -97,14 +97,14 @@ export async function GET() {
              MAX(started_at) AS last_access
       FROM aa GROUP BY device_id ORDER BY last_access DESC LIMIT 20`,
       sql`WITH aa AS (
-        SELECT device_id, app_key, mode, category, level, status,
-               total_questions, correct_count, started_at, finished_at, id
+        SELECT device_id::text, app_key, mode, category, level, status,
+               total_questions, correct_count, started_at, finished_at, id::text
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
                'S'||stage_id||'-C'||class_id, NULL::text,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id
+               completed_questions, score, updated_at, updated_at, id::text
         FROM quiz_results
       )
       SELECT id, app_key, device_id, mode, category, level, status,
