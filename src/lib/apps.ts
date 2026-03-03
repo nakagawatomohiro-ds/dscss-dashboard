@@ -15,16 +15,11 @@ export const APPS: AppConfig[] = [
     url: "https://dscss-sg.vercel.app",
   },
   {
-    key: "cs",
-    name: "クラウドセキュリティ",
-    shortName: "クラウドセキュリティ",
+    key: "acs",
+    name: "AIクラウドセキュリティ学習",
+    shortName: "AIクラウドセキュリティ",
     color: "#8b5cf6",
-  },
-  {
-    key: "ip",
-    name: "ITパスポート",
-    shortName: "ITパスポート",
-    color: "#10b981",
+    url: "https://dscss-acs.vercel.app",
   },
 ];
 
