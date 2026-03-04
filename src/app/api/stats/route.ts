@@ -15,9 +15,9 @@ export async function GET() {
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
-               'S'||stage_id||'-C'||class_id, NULL::text,
+               'S'||stage_id||'-C'||class_id, NULL::integer,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id::text
+               completed_questions, score, updated_at::timestamptz, updated_at::timestamptz, id::text
         FROM quiz_results
       )
       SELECT COUNT(DISTINCT device_id) AS total_devices,
@@ -33,9 +33,9 @@ export async function GET() {
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
-               'S'||stage_id||'-C'||class_id, NULL::text,
+               'S'||stage_id||'-C'||class_id, NULL::integer,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id::text
+               completed_questions, score, updated_at::timestamptz, updated_at::timestamptz, id::text
         FROM quiz_results
       )
       SELECT DATE(started_at) AS date, COUNT(*) AS attempts,
@@ -51,9 +51,9 @@ export async function GET() {
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
-               'S'||stage_id||'-C'||class_id, NULL::text,
+               'S'||stage_id||'-C'||class_id, NULL::integer,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id::text
+               completed_questions, score, updated_at::timestamptz, updated_at::timestamptz, id::text
         FROM quiz_results
       )
       SELECT app_key, COUNT(DISTINCT device_id) AS devices,
@@ -68,9 +68,9 @@ export async function GET() {
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
-               'S'||stage_id||'-C'||class_id, NULL::text,
+               'S'||stage_id||'-C'||class_id, NULL::integer,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id::text
+               completed_questions, score, updated_at::timestamptz, updated_at::timestamptz, id::text
         FROM quiz_results
       )
       SELECT app_key, category, COUNT(*) AS attempts,
@@ -84,9 +84,9 @@ export async function GET() {
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
-               'S'||stage_id||'-C'||class_id, NULL::text,
+               'S'||stage_id||'-C'||class_id, NULL::integer,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id::text
+               completed_questions, score, updated_at::timestamptz, updated_at::timestamptz, id::text
         FROM quiz_results
       )
       SELECT device_id, COUNT(*) AS total_attempts,
@@ -102,9 +102,9 @@ export async function GET() {
         FROM attempts
         UNION ALL
         SELECT user_id::text, 'acs', 'learn',
-               'S'||stage_id||'-C'||class_id, NULL::text,
+               'S'||stage_id||'-C'||class_id, NULL::integer,
                CASE WHEN finished THEN 'finished' ELSE 'in_progress' END,
-               completed_questions, score, updated_at, updated_at, id::text
+               completed_questions, score, updated_at::timestamptz, updated_at::timestamptz, id::text
         FROM quiz_results
       )
       SELECT id, app_key, device_id, mode, category, level, status,
